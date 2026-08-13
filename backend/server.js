@@ -22,7 +22,7 @@ app.listen(3000, (err) => {
 		if (Error.isError(err)) {
 			console.error(err.message);
 		} else {
-			console.error(Error(err));
+			console.error(Error(err).message);
 		};
 	};
 });
