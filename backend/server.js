@@ -58,3 +58,23 @@ app.get("/", (req, res, next) => {
 		};
 	});
 });
+
+
+
+
+
+
+app.get("/login", (req, res) => {
+	
+  //logic goes here
+});
+
+app.get ("/feed", (req, res) => {
+
+	//logic goes here
+});
+
+app.get("/profile", (req, res) => {
+
+	//logic goes here
+});
