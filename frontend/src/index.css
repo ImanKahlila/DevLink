@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "STIX Two Text", ui-serif, Georgia, serif;
+}
+
 :root {
 
 }
@@ -9,6 +13,7 @@
 }
 
 body {
+  font-family: "STIX Two Text", ui-serif, Georgia, serif;
 }
 
 
