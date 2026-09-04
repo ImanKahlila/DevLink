@@ -1,19 +1,13 @@
 @import "tailwindcss";
-
 @theme {
   --font-sans: "STIX Two Text", ui-serif, Georgia, serif;
 }
-
-:root {
-
-}
-
-@media (prefers-color-scheme: dark) {
-
-}
-
+html,
 body {
+  background: #181818;
+}
+body {
+  margin: 0;
+  min-width: 320px;
   font-family: "STIX Two Text", ui-serif, Georgia, serif;
 }
-
-
