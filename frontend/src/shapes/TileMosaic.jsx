@@ -1,5 +1,5 @@
-import Tile from './Tile'
-import { tileData, viewBox } from './tileData'
+import Tile from "./Tile";
+import { tileData, viewBox } from "./tileData";
 
 function TileMosaic({ className, tileClassName }) {
   return (
@@ -12,7 +12,7 @@ function TileMosaic({ className, tileClassName }) {
         <Tile key={tile.id} {...tile} className={tileClassName} />
       ))}
     </svg>
-  )
+  );
 }
 
-export default TileMosaic
+export default TileMosaic;

@@ -1,9 +1,9 @@
-import { useId } from 'react'
-import { tileData, viewBox } from './tileData'
+import { useId } from "react";
+import { tileData, viewBox } from "./tileData";
 
-function ImageTileMask({ shapeIds, src, alt = '', className }) {
-  const clipId = `image-tile-mask-${useId()}`
-  const selectedTiles = tileData.filter((tile) => shapeIds.includes(tile.id))
+function ImageTileMask({ shapeIds, src, alt = "", className }) {
+  const clipId = `image-tile-mask-${useId()}`;
+  const selectedTiles = tileData.filter((tile) => shapeIds.includes(tile.id));
 
   return (
     <svg
@@ -27,7 +27,7 @@ function ImageTileMask({ shapeIds, src, alt = '', className }) {
         clipPath={`url(#${clipId})`}
       />
     </svg>
-  )
+  );
 }
 
-export default ImageTileMask
+export default ImageTileMask;
