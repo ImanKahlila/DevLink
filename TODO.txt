@@ -1,0 +1,110 @@
+DEVLINK - PROJECT ROADMAP & REMAINING TASKS
+
+This document tracks all outstanding tasks and deliverables for the DevLink project, organized across Frontend and Backend.
+
+================================================================================
+FRONTEND
+================================================================================
+
+1. Landing / Home Page
+   [ ] Enlarge Content Proportions: Scale up typography (headings, eyebrow, copy), call-to-action buttons, and tile image container for greater visual impact.
+   [ ] Tile Component Imagery: Embed photography/images into selected shapes within the SVG Tile / TileMosaic component (using masks/pattern fills).
+   [ ] App-Wide Animations: Introduce smooth page transitions, stagger reveals, and micro-interactions on cards, buttons, and navigation elements.
+
+2. Auth & Onboarding (Login & Sign-Up)
+   [ ] Sign-Up Route & Form: Create a dedicated sign-up / onboarding page (e.g. #/signup) collecting essential profile details:
+       - Full Name
+       - Email
+       - Headline / Role (e.g. "Independent creative director")
+       - Bio / About summary
+       - Location
+       - Skills & specialties (tags/chips used for search)
+       - Profile photo / initials
+   [ ] Link Sign-Up from Login: Update "New here? Request an invitation" on the login page to route directly to the sign-up page.
+   [ ] Right-Hand Side Image: Replace the right-side mosaic / quote card with a curated, high-quality photograph or artwork.
+   [ ] Left-Hand Side Spacing: Refine padding, vertical rhythm, input gaps, and alignment on the login form.
+   [ ] Remove "Continue with Google": Remove the Google button for now until a custom domain and OAuth credentials are fully configured.
+   [ ] Connect Login to Auth: Replace the facade (window.location.hash = "#/feed") with real authentication handling (Clerk or OAuth / session).
+
+3. Sidebar & Global Layout
+   [ ] Uniform Button Padding: Align the Theme button and Log out button in the sidebar footer so both have matching padding, margins, and hover effects.
+   [ ] Pink Highlight Black Text (Active Sidebar): Ensure that when nav items or buttons are highlighted pink (e.g. active sidebar link), the text and icon color is black instead of white/light ink.
+
+4. Visual Contrast & Dark Mode Consistency
+   [ ] Global Pink-on-Black Rule: Audit all pages (Sidebar, Feed, Profile, Settings, Modals, Tags, Badges) and ensure any pink background in dark mode has black text/icons for optimal legibility and contrast.
+
+5. Feed & Social Interactions
+   [ ] Working Like / Appreciate Button: Clicking "Appreciate" on a post updates the like counter, toggles active heart state, and syncs with the backend.
+   [ ] Working Save / Bookmark Button: Clicking "Save" toggles bookmark state, updates the icon, and saves to the user's collection.
+   [ ] Working Reply Button & Thread: Clicking "Reply" opens a comment/reply composer or drawer to view existing replies and submit new responses.
+   [ ] Working "Share a Note" Composer: Connect the floating + button, feed prompt ("What are you working through?"), and /add-post form to actually create and publish posts to the feed.
+
+6. Discover & Search Page
+   [ ] Live Multi-Criteria Search: Make the search bar functional to filter profiles dynamically by:
+       - Person's name
+       - Person's skills & specialties
+       - Keywords / roles
+   [ ] Functional Filter Tabs: Make "For you", "People", "Projects", and "Topics" tabs switch views or filter lists accordingly.
+
+7. Settings Page Simplification
+   [ ] Remove Circle Digest: Completely remove the "Weekly circle digest" toggle and its references.
+   [ ] Remove Appearance Section & Tab: Remove the "Appearance" nav tab and the "Set the atmosphere" section (theme toggle is already present in the sidebar).
+   [ ] Clean Up / Clarify Privacy Tab: Remove undefined "Privacy" nav link or replace with straightforward presence settings.
+
+8. Interactive Polish
+   [ ] Button Functionality Audit: Ensure every clickable element (post menu "...", person card menu, "View profile", "Change photo", "Edit profile", "Copy link", notification bell) has an active handler, modal, feedback toast, or real navigation.
+
+
+================================================================================
+BACKEND
+================================================================================
+
+1. Database & Prisma Schema Modeling
+   [ ] User & Profile Model:
+       - Store id, email, name, avatarUrl, headline, bio, location, createdAt, updatedAt.
+       - Add skills (string array or dedicated Skill relation) to enable skill-based searching.
+   [ ] Post / Note Model:
+       - Store id, authorId, content, tags, timestamps, and relations to likes, saves, and replies.
+   [ ] Interaction Models:
+       - Like / Appreciation model (unique compound index on [userId, postId]).
+       - SavedPost / Bookmark model (unique compound index on [userId, postId]).
+       - Reply / Comment model (id, postId, userId, content, createdAt).
+
+2. Authentication & OAuth Implementation (using Clerk is fine for this)
+   [ ] User Registration & Onboarding Endpoint:
+       - Implement /api/auth/register (or Clerk webhook / user sync) to store newly registered user profile info: name, email, skills, headline, bio, location.
+   [ ] OAuth / Auth Provider Integration:
+       - Set up Clerk or OAuth flow (e.g. GitHub/Google once configured) or secure email login.
+       - Implement /api/auth/login, /api/auth/callback, /api/auth/me, and /api/auth/logout.
+   [ ] Session & Token Verification:
+       - Implement Clerk middleware or JWT / session middleware to protect authenticated API endpoints.
+
+3. Posts & Feed API
+   [ ] Feed Endpoint (GET /api/posts): Return chronological feed posts with author profiles, like count, reply count, and booleans for isLiked and isSaved by current user.
+   [ ] Create Note Endpoint (POST /api/posts): Validate input, create post, and associate with authenticated user.
+   [ ] Like Endpoint (POST /api/posts/:id/like or DELETE): Toggle user appreciation on a post and return updated count.
+   [ ] Save Endpoint (POST /api/posts/:id/save or DELETE): Add/remove post from user's bookmarks.
+   [ ] Replies Endpoints:
+       - GET /api/posts/:id/replies: Fetch threaded replies for a specific post.
+       - POST /api/posts/:id/replies: Submit a reply to a post.
+
+4. Search API
+   [ ] Search Endpoint (GET /api/users/search?q=...):
+       - Implement case-insensitive search matching against name, headline, and skills.
+       - Return formatted user cards with role, avatar, and skill badges.
+
+5. Profile & Settings API
+   [ ] Profile Endpoints:
+       - GET /api/users/:id or /api/users/profile (fetch current profile).
+       - PUT /api/users/profile (update display name, headline, bio, photo).
+   [ ] Settings Endpoint:
+       - Store notification & presence preferences (excluding removed circle digest / appearance settings).
+
+
+================================================================================
+FRONTEND & BACKEND INTEGRATION
+================================================================================
+
+[ ] API Client / Service Layer: Create clean fetch utility wrappers in frontend/src/lib/api.js for auth, posts, likes, saves, replies, search, and user profile.
+[ ] Optimistic UI Updates: Instant feedback when liking, saving, or submitting a reply before the network request resolves.
+[ ] Global Auth Context: Replace hardcoded user session with real auth state stored in context.
