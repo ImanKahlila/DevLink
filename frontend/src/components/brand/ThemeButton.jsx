@@ -9,7 +9,7 @@ export function ThemeButton({ showLabel = false }) {
 
   return (
     <button
-      className={`theme-control ${showLabel ? "theme-control-wide" : ""}`}
+      className={`theme-control ${isDark ? "theme-control-light" : "theme-control-dark"}  ${showLabel ? "theme-control-wide" : ""}`}
       onClick={toggleTheme}
       title={action}
       aria-label={action}

@@ -279,7 +279,7 @@ html[data-theme="dark"] .floating-compose {
 }
 .side-nav {
   position: fixed;
-  width: 212px;
+  width: 200px;
   min-height: 100vh;
   padding: 30px 22px 22px;
   border-right: 1px solid var(--line);
@@ -295,13 +295,13 @@ html[data-theme="dark"] .floating-compose {
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 11px 10px;
+  gap: 10px;
+  padding: 11px 20px;
   color: var(--muted);
   font: 600 12px var(--sans);
   transition:
     transform 0.2s,
-    color 0.2s,
+    color 0.1s,
     background 0.2s;
 }
 .nav-link:hover {
@@ -309,12 +309,13 @@ html[data-theme="dark"] .floating-compose {
   transform: translateX(3px);
 }
 .nav-link.active {
-  color: var(--ink);
+  color: #000;
   background: var(--pink);
 }
 .side-bottom {
   display: grid;
-  gap: 12px;
+  gap: 10px;
+  margin-left: 7px;
 }
 .side-bottom .icon-button {
   margin-left: 10px;
@@ -1052,7 +1053,7 @@ html[data-theme="dark"] .floating-compose {
   place-items: center;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--orange);
+  color: var(--ink);
   cursor: pointer;
   transition:
     transform 0.2s ease,
@@ -1062,11 +1063,16 @@ html[data-theme="dark"] .floating-compose {
 .theme-control span {
   display: none;
 }
-.theme-control:hover {
-  background: rgba(253, 198, 238, 0.14);
-  border-color: var(--orange);
-  color: var(--orange);
-  transform: translateY(-2px);
+
+.theme-control-light:hover {
+  background: #fff;
+  color: #000;
+  border: 1px solid var(--orange)
+}
+.theme-control-dark:hover {
+  background-color: var(--ink);
+  color: #fff;
+  border: 1px solid var(--pink);
 }
 .theme-control-wide {
   width: calc(100% - 16px);
